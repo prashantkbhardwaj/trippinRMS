@@ -1,3 +1,4 @@
+
 <?php require_once("includes/session.php");?>
 <?php require_once("includes/db_connection.php");?>
 <?php require_once("includes/functions.php");?>
@@ -417,6 +418,7 @@
                             
                       <div class="box-footer">
                         <button type="button" id="btnPrint" class="btn btn-primary col-lg-12">Print</button>
+                        <a href="resetTable.php?order_id=<?php echo $tableDetails['current_bill']; ?>&table_id=<?php echo $table_id ?>" onclick="return confirm('Are you sure you want to clear and reset this table?');"><button type="button" class="btn btn-danger col-lg-12">Clear and reset table</button></a>
                       </div>
                         
                     </div>
