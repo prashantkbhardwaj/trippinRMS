@@ -139,10 +139,7 @@
                   <!-- small box -->
                   <div class="small-box bg-primary">
                     <div class="inner">
-                      <h3><?php  ?></sup></h3>
-
-                      <p>Total bills 12</p>
-                      <p>Total Sale <i class="fa fa-inr"></i> 12233</p>
+                      <h3><?php echo $listDates['order_date']; ?></sup></h3>
                     </div>
                     <div class="icon">
                       <i class="ion ion-calendar"></i>
