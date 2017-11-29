@@ -154,6 +154,9 @@
                 <div class="col-lg-3 col-xs-6">
                   <!-- small box -->
                   <div class="small-box bg-<?php if($table_list['current_bill']==0){echo "green";} else {echo "red";} ?>">
+                    <a href="deleteTable.php?table_id=<?php echo $table_list['id']; ?>" class="small-box-footer" onclick="return confirm('Are you sure you want to delete this table?');">
+                        Delete Table &nbsp;
+                    <i class="fa fa-window-close"></i></a>
                     <div class="inner">
                       <h3><?php echo $table_list['name']; ?></h3>
 
