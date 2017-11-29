@@ -11,16 +11,29 @@
     $first_name = explode(" ", $name_title['name']);
 ?>
 <?php
-    $query_dates = "SELECT DISTINCT(order_date) FROM orders";
-    $result_dates = mysqli_query($conn, $query_dates);
-    confirm_query($result_dates);
+    $query_gst = "SELECT * FROM gst";
+    $result_gst = mysqli_query($conn, $query_gst);
+    confirm_query($result_gst);
+    $show_gst = mysqli_fetch_assoc($result_gst);
+?>
+<?php
+    $order_date = $_GET['order_date'];
+    $query_invoice = "SELECT DISTINCT(order_id) FROM orders WHERE order_date = '{$order_date}'";
+    $result_invoice = mysqli_query($conn, $query_invoice);
+    confirm_query($result_invoice);
+    $invoiceNos = [];
+    $i = 0;
+    while ($invoiceList = mysqli_fetch_assoc($result_invoice)) {
+        $invoiceNos[$i] = $invoiceList['order_id'];
+        $i = $i+1;
+    }
 ?>
 <!DOCTYPE html>
 <html>
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>Trippin Cafe | History</title>
+  <title>Trippin Cafe | Dates</title>
   <!-- Tell the browser to be responsive to screen width -->
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
   <!-- Bootstrap 3.3.7 -->
@@ -98,7 +111,7 @@
       <ul class="sidebar-menu" data-widget="tree">
         <li class="header">MAIN NAVIGATION</li>
         <li>
-          <a href="dashboard.php">
+          <a href="#">
             <i class="fa fa-dashboard"></i> <span>Dashboard</span>
           </a>
         </li>
@@ -124,8 +137,8 @@
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
-        History
-        <small>Date wise</small>
+        <?php echo $order_date; ?>
+        <small>Bills</small>
       </h1>
     </section><br>
 
@@ -134,23 +147,66 @@
       <!-- Small boxes (Stat box) -->
       <div class="row">
         <?php
-            while ($listDates = mysqli_fetch_assoc($result_dates)) { ?>
-                <div class="col-lg-3 col-xs-6">
-                  <!-- small box -->
-                  <div class="small-box bg-primary">
-                    <div class="inner">
-                      <h3><?php echo $listDates['order_date']; ?></sup></h3>
+            for ($i=0; $i < sizeof($invoiceNos); $i++) { 
+                $query_invoiceArr = "SELECT * FROM orders WHERE order_date = '{$order_date}' AND order_id = '{$invoiceNos[$i]}'";
+                $result_invoiceArr = mysqli_query($conn, $query_invoiceArr);
+                confirm_query($result_invoiceArr);
+                $query_bill = "SELECT SUM(cost) FROM orders WHERE order_id = '{$invoiceNos[$i]}' AND order_date = '{$order_date}'";
+                $result_bill = mysqli_query($conn, $query_bill);
+                confirm_query($result_bill);
+                $bill_amount = mysqli_fetch_array($result_bill); ?>
+                    <div class="col-lg-6 col-xs-6">
+                      <div class="box box-primary">
+                          <div class="box-header with-border text-center">
+                                <h2 class="box-title">Trippin Cafe</h2>
+                                <h6>Invoice No.: <?php echo $invoiceNos[$i]; ?></h6>
+                            </div>  
+                            <div class="box-body">
+                                <table id="example2" class="table table-bordered table-hover">
+                                <thead>
+                                <tr>
+                                  <th class="text-center">Product</th>
+                                  <th class="text-center">Rate</th>
+                                  <th class="text-center">Quantity</th>
+                                  <th class="text-center">Cost</th>
+                                  
+                                </tr>
+                                </thead>
+                                <tbody>
+                <?php
+                while ($invoiceArr = mysqli_fetch_assoc($result_invoiceArr)) { ?>
+                    
+                                <tr>
+                                  <td><?php echo $invoiceArr['product_name']; ?></td>
+                                  <td><?php echo $invoiceArr['rate']; ?></td>
+                                  <td><?php echo $invoiceArr['quantity']; ?></td>
+                                  <td><?php echo $invoiceArr['cost']; ?></td>
+                                </tr>
+                                
+                    <?php
+                    
+                }
+                ?>
+                            </tbody>
+                              </table>
+                                <hr>
+                                Total <i class="fa fa-inr"></i> <?php echo $bill_amount[0]; ?><br>
+                              GST <?php echo $show_gst['value']; ?>%<br>
+                              Grand Total <span><strong><h3>
+                                <i class="fa fa-inr"></i>
+                                <?php
+                                    $grandTotal = $bill_amount[0] + (($show_gst['value']/100)*$bill_amount[0]);
+                                    echo $grandTotal;
+                                  ?>
+                              </h3></strong></span>
+                            </div>
+                        </div>
                     </div>
-                    <div class="icon">
-                      <i class="ion ion-calendar"></i>
-                    </div>
-                    <a href="dates.php?order_date=<?php echo $listDates['order_date'] ?>" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
-                  </div>
-                </div>
                 <?php
             }
-        ?>  
-        </div>
+        ?>
+        
+      </div>
       <!-- /.row -->
 
     </section>
