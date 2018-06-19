@@ -17,11 +17,12 @@ if(isset($_POST['submit'])){
 		
 		$username = mysql_prep($_POST['username']);	
 		$name = $_POST['name'];	
+		$type = $_POST['type'];
 		$hashed_password = password_encrypt($_POST['password']);
 					
 
-		$query = "INSERT INTO users (name, username, hashed_password)";
-		$query .= " VALUES ('{$name}', '{$username}', '{$hashed_password}')";
+		$query = "INSERT INTO users (name, username, hashed_password, type)";
+		$query .= " VALUES ('{$name}', '{$username}', '{$hashed_password}', {$type})";
 		$result = mysqli_query($conn, $query);
 
         if ($result) {
@@ -31,17 +32,22 @@ if(isset($_POST['submit'])){
 	    }        	
 	}
 }
+
+$query = "SELECT COUNT(id) FROM users WHERE type = 0";
+$result = mysqli_query($conn, $query);
+$row = mysqli_fetch_array($result);
+$total = $row[0];
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html>
-<head><title>Trippin Cafe Admin</title>
+<head><title>IDEA Admin</title>
 <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 <link rel="icon" href="favicon.png" type="image/x-icon">
 </head>
 <body>
 <div id="header">
-<h1>Trippin Cafe Admin</h1>
+<h1>IDEA Admin</h1>
 </div>
 <div id="main">	
 	<div id="page">
@@ -60,6 +66,21 @@ if(isset($_POST['submit'])){
 		   				<td>Email</td>
 		   				<td>
 		   					<input type="email" name="username" value="" required />
+		   				</td>
+		   			</tr>
+		   			<tr>
+		   				<td>Type</td>
+		   				<td>
+		   					<select name="type">
+		   						<?php
+		   							if ($total == 0) { ?>
+		   								<option value="0">Editor</option>
+		   								<?php
+		   							 } 
+		   						?>
+		   						
+		   						<option value="1">Viewer</option>
+		   					</select>
 		   				</td>
 		   			</tr>
 		   			<tr>

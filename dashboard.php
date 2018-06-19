@@ -10,30 +10,13 @@
     $name_title = mysqli_fetch_assoc($name_result);
     $first_name = explode(" ", $name_title['name']);
 ?>
-<?php
-    if (isset($_POST['submit'])) {
-        $tableName = $_POST['tableName'];
-        $capacity = $_POST['capacity'];
 
-        $query = "INSERT INTO tables (name, capacity) VALUES('{$tableName}', {$capacity})";
-        $result = mysqli_query($conn, $query);
-        confirm_query($result);
-        if ($result) {
-            redirect_to("dashboard.php");
-        }
-    }
-?>
-<?php
-    $query_table = "SELECT * FROM tables";
-    $result_table = mysqli_query($conn, $query_table);
-    confirm_query($result_table);
-?>
 <!DOCTYPE html>
 <html>
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>Trippin Cafe | Dashboard</title>
+  <title>IDEA | Dashboard</title>
   <!-- Tell the browser to be responsive to screen width -->
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
   <!-- Bootstrap 3.3.7 -->
@@ -76,9 +59,9 @@
     <!-- Logo -->
     <a href="dashboard.php" class="logo">
       <!-- mini logo for sidebar mini 50x50 pixels -->
-      <span class="logo-mini"><b>T</b>CF</span>
+      <span class="logo-mini"><b>I</b>IM</span>
       <!-- logo for regular state and mobile devices -->
-      <span class="logo-lg"><b>Trippin</b>Cafe</span>
+      <span class="logo-lg"><b>IDEA</b>Inventory</span>
     </a>
     <!-- Header Navbar: style can be found in header.less -->
     <nav class="navbar navbar-static-top">
@@ -122,9 +105,7 @@
           </a>
         </li>
         <li>
-          <a href="history.php">
-            <i class="fa fa-calendar"></i>
-            <span>History</span>
+          >History</span>
           </a>
         </li>
         </ul>
@@ -141,7 +122,7 @@
         <small>Control panel</small>
       </h1>
       <ol class="breadcrumb">
-        <button type="button" class="btn btn-info" data-toggle="modal" data-target="#modal-add-table">Add Table</button>
+        <button type="button" class="btn btn-info" data-toggle="modal" data-target="#modal-add-table">Add data</button>
       </ol>
     </section><br>
 
@@ -212,7 +193,7 @@
               <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                   <span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title">Add a new table</h4>
+                <h4 class="modal-title">Add a new Entry</h4>
               </div>
               <div class="modal-body">
                 <p>
@@ -221,12 +202,12 @@
                         <form role="form" method="post" action="dashboard.php">
                           <div class="box-body">
                             <div class="form-group">
-                              <label for="tableName">Table Name</label>
-                              <input type="text" class="form-control" name="tableName" id="tableName" placeholder="Enter the name of the table">
+                              <label for="tableName">Date</label>
+                              <input type="text" class="form-control" name="tableName" id="tableName" placeholder="Enter the date ">
                             </div>
                             <div class="form-group">
-                              <label for="capacity">Seating Capacity</label>
-                              <input type="number" class="form-control" name="capacity" id="capacity" placeholder="Enter the seating capacity of the table">
+                              <label for="capacity">Items</label>
+                              <input type="number" class="form-control" name="capacity" id="capacity" placeholder="Enter the items of the table">
                             </div>
                           </div>
                           <!-- /.box-body -->
@@ -246,13 +227,13 @@
         <!-- /.modal -->
 
   <!-- /.content-wrapper -->
-  <footer class="main-footer">
+  <!--<footer class="main-footer">
     <div class="pull-right hidden-xs">
       <b>Version</b> 1.0.0
     </div>
     <strong>Copyright &copy; 2017-2018 <a href="http://prashantkbhardwaj.github.io/">Prashant Bhardwaj</a></strong> All rights
     reserved.
-  </footer>
+  </footer>-->
   <!-- Add the sidebar's background. This div must be placed
        immediately after the control sidebar -->
   <div class="control-sidebar-bg"></div>

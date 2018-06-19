@@ -40,10 +40,10 @@ if (isset($_POST['submit'])) {
 		<meta charset="UTF-8" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"> 
 		<meta name="viewport" content="width=device-width, initial-scale=1.0"> 
-        <title>Trippin Cafe | Login</title>
-        <meta name="description" content="trippin cafe" />
-        <meta name="keywords" content="Trippin Cafe" />
-        <meta name="author" content="Prashant Bhardwaj" />
+        <title>IDEA Inventory | Login</title>
+        <meta name="description" content="idea inventory" />
+        <meta name="keywords" content="Idea Inventory" />
+        <meta name="author" content="Shirisha udatewar" />
         <link rel="shortcut icon" href="../favicon.ico"> 
         <link rel="stylesheet" type="text/css" href="css/style.css" />
 		<script src="js/modernizr.custom.63321.js"></script>
@@ -68,7 +68,7 @@ if (isset($_POST['submit'])) {
 			
 			<header>
 			
-				<h1>Trippin <strong>Cafe</strong></h1>
+				<h1>IDEA<strong> Inventory</strong></h1>
 				<h2>Enter your details</h2>
 
 				<div class="support-note">

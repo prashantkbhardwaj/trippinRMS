@@ -3,9 +3,9 @@
 <?php require_once("includes/functions.php");?>
 <?php confirm_logged_in(); ?>
 <?php
-	$product_id = $_GET['product_id'];
+	$product_id = $_GET['Product_ID'];
 
-	$query = "DELETE FROM products WHERE id = {$product_id}";
+	$query = "DELETE FROM products WHERE id = {$Product_ID}";
 	$result = mysqli_query($conn, $query);
 	confirm_query($result);
 	if ($result) {
